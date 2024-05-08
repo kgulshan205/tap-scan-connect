@@ -1,0 +1,28 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "A description of your project",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "GULLU SINGH",
+  "license": "ISC",
+  "dependencies": {
+    "@azure/cosmos": "^4.0.0",
+    "bcrypt": "^5.1.1",
+    "bwip-js": "^4.3.2",
+    "can-promise": "^0.0.1",
+    "crypto": "^1.0.1",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "http": "^0.0.1-security",
+    "mongoose": "^8.2.3",
+    "path": "^0.12.7",
+    "qr-image": "^3.2.0",
+    "qrcode": "^1.5.3",
+    "socket.io": "^4.7.5"
+  }
+}

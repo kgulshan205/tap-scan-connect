@@ -1,0 +1,255 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: url("../image/background.png") no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    /* Ensure the body covers the entire viewport */
+    position: relative;
+}
+
+nav {
+    width: 100%;
+    padding: 0px 1%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1; /* Ensure the header stays above other elements */
+}
+
+.logo {
+    width: 120px;
+}
+
+.user-pic {
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 30px;
+}
+
+nav ul {
+    width: 100%;
+    text-align: right;
+}
+
+nav ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 10px 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.sub-menu-wrap {
+    position: absolute;
+    top: 70%;
+    right: 0%;
+    width: 230px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+    z-index: 2;
+}
+
+.sub-menu-wrap.open-menu {
+    max-height: 400px;
+}
+
+.sub-menu {
+    background: transparent;
+    padding: 43px;
+    margin: -23px;
+    color: white;
+}
+
+.user-info h3 {
+    font-weight: 500;
+}
+
+.user-info img {
+    width: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.sub-menu hr {
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background: #ccc;
+    margin: 15px 0 10px;
+}
+
+.sub-menu-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    margin: 12px 0;
+}
+
+.sub-menu-link p {
+    width: 100%;
+}
+
+.sub-menu-link img {
+    width: 40px;
+    background: #e5e5e5;
+    border-radius: 50%;
+    padding: 8px;
+    margin-right: 15px;
+}
+
+.sub-menu-link span {
+    font-size: 22px;
+    transition: transform 0.5s;
+}
+
+.sub-menu-link:hover span {
+    transform: translateX(5px);
+}
+
+.sub-menu-link:hover p {
+    font-weight: 600;
+}
+
+.logout {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: auto;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff; /* Set text color to white */
+}
+
+.form-box {
+    padding: 20px;
+    text-align: center;
+}
+
+.form-box h2 {
+    margin-bottom: 20px;
+}
+
+.details {
+    text-align: center;
+    padding: 20px;
+}
+
+.details h1 {
+    margin-bottom: 10px;
+}
+
+.details p {
+    margin-bottom: 5px;
+}
+
+
+.input-box {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.input-box .icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px 40px 10px 30px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 30px;
+    color: #fff;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.input-box input:focus + label,
+.input-box input:valid + label {
+    top: 0;
+    transform: translateY(0%);
+    font-size: 12px;
+}
+
+.remember-forgot {
+    margin-bottom: 20px;
+}
+
+.remember-forgot label {
+    color: #fff;
+    margin-right: 10px;
+}
+
+.remember-forgot a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.remember-forgot a:hover {
+    color: #162938;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background: #fff;
+    color: #162938;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #162938;
+    color: #fff;
+}

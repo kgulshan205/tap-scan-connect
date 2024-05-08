@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title> Register TAP PAY SCAN</title>
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+
+<body>
+    <header>
+        <h2 class="logo">TAP PAY SCAN</h2>
+        <nav class="navigation">
+        </nav>
+    </header>
+
+    <div class="wrapper">
+        <div class="form-box login">
+            <h2>Registration</h2>
+            <form action="/register" method="post" onsubmit="return validateForm()">
+                <div class="input-row">
+                    <div class="input-box">
+                        <span class="icon">
+                            <ion-icon name="person"></ion-icon>
+                        </span>
+                        <input type="text" required id="name" name="name" class="form-input" pattern="[A-Za-z ]+"
+                            title="Only alphabets and spaces are allowed">
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon">
+                            <ion-icon name="mail"></ion-icon>
+                        </span>
+                        <input type="email" required id="email" name="email" class="form-input"
+                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Invalid email address">
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-box">
+                        <span class="icon">
+                            <ion-icon name="lock-closed"></ion-icon>
+                        </span>
+                        <input type="password" required id="password" name="password" class="form-input">
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon">
+                            <ion-icon name="lock-closed"></ion-icon>
+                        </span>
+                        <input type="password" required id="confirmPassword" name="confirmPassword" class="form-input">
+                        <label for="confirmPassword">Confirm Password</label>
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-box">
+                        <span class="icon">
+                            <ion-icon name="person"></ion-icon>
+                        </span>
+                        <input type="text" required id="mobile" name="mobile" class="form-input">
+                        <label for="mobile">Mobile No</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon">
+                            <ion-icon name="home"></ion-icon>
+                        </span>
+                        <input type="text" required id="vehiclenumber" name="vehiclenumber" class="form-input">
+                        <label for="vehicleNumber">Vehicle Number</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">Register</button>
+                <div class="login-register">
+                    <p>Already have an account? <a href="/login" class="register-link">Login</a> </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+
+</html>

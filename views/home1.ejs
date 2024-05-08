@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@latest"></script>
+
+    <script>src = " https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"</script>
+
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: url("../image/background.png") no-repeat;
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            /* Ensure the body covers the entire viewport */
+        }
+
+        nav {
+            width: 100%;
+            padding: 0px 1%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .logo {
+            width: 120px;
+        }
+
+        .user-pic {
+            width: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-left: 30px;
+        }
+
+        nav ul {
+            width: 100%;
+            text-align: right;
+        }
+
+        nav ul li {
+            display: inline-block;
+            list-style: none;
+            margin: 10px 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .sub-menu-wrap {
+            position: absolute;
+            top: 70%;
+            right: 0%;
+            width: 230px;
+            max-height: 0px;
+            overflow: hidden;
+            transition: max-height 0.5s;
+            z-index: 2;
+        }
+
+        .sub-menu-wrap.open-menu {
+            max-height: 400px;
+        }
+
+        .sub-menu {
+            background: transparent;
+            padding: 43px;
+            margin: -23px;
+            color: white;
+        }
+
+        .user-info h3 {
+            font-weight: 500;
+        }
+
+        .user-info img {
+            width: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .sub-menu hr {
+            border: 0;
+            height: 1px;
+            width: 100%;
+            background: #ccc;
+            margin: 15px 0 10px;
+        }
+
+        .sub-menu-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            margin: 12px 0;
+        }
+
+        .sub-menu-link p {
+            margin-left: 10px;
+        }
+
+        .sub-menu-link img {
+            width: 40px;
+            background: #e5e5e5;
+            border-radius: 50%;
+            padding: 8px;
+            margin-right: 15px;
+        }
+
+        .sub-menu-link span {
+            font-size: 22px;
+            transition: transform 0.5s;
+        }
+
+        .sub-menu-link:hover span {
+            transform: translateX(5px);
+        }
+
+        .sub-menu-link:hover p {
+            font-weight: 600;
+        }
+
+        /* Wrapper Styles */
+        .wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 1000px;
+            height: 550px;
+            background: transparent;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            border-radius: 30px;
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        /* Chat Box Styles */
+        #roomIdDisplay {
+            font-weight: bold;
+            color: rgba(11, 11, 233, 0.74);
+        }
+
+        #publicUserLink {
+            color: rgba(27, 14, 213, 0.863);
+            text-decoration: none;
+        }
+
+        #publicUserLink:hover {
+            text-decoration: underline;
+        }
+
+        #chatbox {
+            height: 95%;
+            margin-top: 6px;
+            margin-right: 13%;
+            width: 40%;
+            border: -5px solid #ccc;
+            border-radius: 11px;
+            overflow: hidden;
+        }
+
+        #messages {
+            height: 356px;
+            overflow-y: scroll;
+            padding: 13px;
+            background-color: #c7c4ec4a;
+        }
+
+        #messages li {
+            padding: 8px 12px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .other-user-message {
+            text-align: right;
+            color: #f7f7f7;
+            background-color: transparent;
+            border-radius: 0 10px 10px 10px;
+        }
+
+        #message {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #aa1818;
+            background-color: transparent;
+            border-radius: 5px;
+        }
+
+        #input-container input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #input-container button {
+            margin-top: 6px;
+            padding: 8px;
+            background-color: #9fa1de61;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #e70a50;
+        }
+
+        /* Card Styles */
+        .card {
+            width: 40%;
+            height: 95%;
+            margin-top: 6px;
+            background-color: transparent;
+            border: 1px solid #c04f4f;
+            border-radius: 27px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: auto;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .card-body {
+            padding: 10px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Footer Styles */
+        footer {
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+
+        #qrcode {
+            width: 200px;
+            /* Adjust width as needed */
+            height: 200px;
+            /* Adjust height as needed */
+            margin: 20px auto;
+            /* Center the QR code horizontally and add some margin */
+            border: 2px solid #333;
+            /* Add border to the QR code */
+            padding: 10px;
+            /* Add padding around the QR code */
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <img src="../image/logo.png" class="logo" style="width: 180px; height: 70px" />
+        <ul>
+            <li><a href="/home">Home</a> </li>
+            <li><a href="/about">About</a> </li>
+            <li><a href="/contact">Contact Us</a></li>
+        </ul>
+        <img src="../image/user.png" class="user-pic" onclick="toggleMenu()" />
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <img src="../image/user.png" />
+                    <h3>My Profile</h3>
+                </div>
+                <hr />
+                <a href="/profile" class="sub-menu-link">
+                    <img src="../image/profile.png" />
+                    <p>Edit profile</p>
+                    <span></span>
+                </a>
+                <a href="/login" class="sub-menu-link">
+                    <img src="../image/logout.png" />
+                    <p>Logout</p>
+                    <span></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <div id="chatbox">
+            <div id="chat-header">Parking Alert
+                <p>Room ID: <span id="roomIdDisplay"></span></p>
+                <p>Public User Link: <a href="#" id="publicUserLink" target="_blank">Join Public Chat</a></p>
+            </div>
+            <ul id="messages"></ul>
+            <div id="input-container">
+                <input id="message" autocomplete="off" placeholder="Type your Alert" />
+
+                <button onclick="sendMessage()">Send</button>
+
+            </div>
+        </div>
+        <div class="card">
+            <img src="../image/parking.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+                <p class="card-text">Welcome To TAP PAY SCAN service</p>
+
+                <div id="qrcode"></div>
+
+                <a href="#" id="downloadLink" download="qrcode.png">Download QR Code</a>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tap Scan</p>
+    </footer>
+
+    <script src="/js/home.js"></script>
+
+    <script>
+
+        import QRCode from './src/qrcodejs-master';
+        src = "path/to/your/bundle.js"
+
+        const socket = io();
+        let roomId = getStoredRoomId();
+
+        // Function to join a room
+        function joinRoom() {
+            socket.emit("join room", roomId); // Join the room
+        }
+
+        // Function to retrieve the stored room ID or generate a new one if not exists
+        function getStoredRoomId() {
+            let storedRoomId = localStorage.getItem('roomId');
+            if (!storedRoomId) {
+                storedRoomId = generateRoomID();
+                localStorage.setItem('roomId', storedRoomId);
+            }
+            return storedRoomId;
+        }
+
+        // Function to generate a room ID
+        function generateRoomID() {
+            return Math.random().toString(36).substring(2, 8).toUpperCase(); // Generating a 6-character room ID
+        }
+
+
+
+
+
+        // Function to send a message
+        function sendMessage() {
+            const message = document.getElementById('message').value;
+            socket.emit('chat message', { roomId, message, sender: 'Me' });
+            document.getElementById('message').value = '';
+            appendMessage('Me', message);
+        }
+
+        // Function to append a message to the chat
+        function appendMessage(sender, message) {
+            const messages = document.getElementById('messages');
+            const existingMessages = messages.querySelectorAll('li');
+            const isNewMessage = [...existingMessages].every(existingMessage => {
+                return existingMessage.textContent !== `${sender}: ${message}`;
+            });
+
+            if (isNewMessage) {
+                const item = document.createElement('li');
+                item.textContent = `${sender}: ${message}`;
+                if (sender === 'Me') {
+                    item.classList.add('user-message');
+                } else {
+                    item.classList.add('other-user-message');
+                }
+                messages.appendChild(item);
+                // Scroll to the bottom of the chat box to show new message
+                messages.scrollTop = messages.scrollHeight;
+            }
+        }
+
+        // Event listener for receiving messages
+        socket.on('chat message', function (data) {
+            appendMessage(data.sender, data.message);
+        });
+
+        // Event listener for informing user1 when a public user joins the room
+        socket.on('user joined', function (socketId) {
+            if (socketId !== socket.id) {
+                alert('A public user has joined the chat.');
+            }
+        });
+
+
+        //code 
+
+        // Function to generate the QR code dynamically based on the content of the public user link
+        function generateQRCodeFromPublicUserLink() {
+            try {
+                // Get the content from the public user link element
+                const publicUserLinkElement = document.getElementById("publicUserLink");
+                const url = publicUserLinkElement.href; // Get the href attribute of the <a> element
+
+                // Initialize QRCode.js with options
+                const qrcode = new QRCode(document.getElementById("qrcode"), {
+                    text: url,
+                    width: 128,
+                    height: 128,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+                // Create a download link for the QR code image
+                const downloadLink = document.getElementById("downloadLink");
+                downloadLink.href = qrcode.toDataURL(); // Set the href attribute to the QR code Data URL
+
+                // Print the generated QR code to the console as a Data URL
+                console.log(qrcode.toDataURL());
+            } catch (error) {
+                // Print the error to the console if QR code generation fails
+                console.error("QR code generation failed:", error);
+            }
+        }
+
+        // Call the generateQRCodeFromPublicUserLink function when the page loads
+        window.onload = function () {
+            generateQRCodeFromPublicUserLink();
+        };
+
+
+
+        //end
+
+
+        window.onload = async function () {
+            document.getElementById('roomIdDisplay').textContent = roomId; // Display room ID
+            document.getElementById('publicUserLink').href = `/public.html?roomId=${roomId}`; // Set link href
+            joinRoom();
+
+        };
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>

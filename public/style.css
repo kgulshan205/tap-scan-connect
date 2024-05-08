@@ -1,0 +1,191 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url("../image/background.png") no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+}
+
+.logo {
+    font-size: 2em;
+    color: #ffffff;
+    user-select: none;
+}
+
+.navigation a {
+    position: relative;
+    font-size: 1.1em;
+    color: #fbfbfb;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: color 0.3s;
+}
+
+.navigation a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform 0.5s;
+}
+
+.navigation a:hover::after {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.navigation .btnLogin-popup {
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: 0.5s;
+}
+
+.navigation .btnLogin-popup:hover {
+    background: #fff;
+    color: #162938;
+}
+
+.wrapper {
+    position: relative;
+    width: 400px;
+    height: 440px;
+    background: rgba(255, 255, 255, 0.1);
+    /* Adjusted background color for better contrast */
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5);
+    /* Adjusted box shadow for better depth */
+    display: flex;
+    flex-direction: column;
+    /* Added to make content stack vertically */
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box {
+    padding: 40px;
+    text-align: center;
+}
+
+.form-box h2 {
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.input-box {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.input-box .icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px 40px 10px 30px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 30px;
+    color: #fff;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.input-box input:focus+label,
+.input-box input:valid+label {
+    top: 0;
+    transform: translateY(0%);
+    font-size: 12px;
+}
+
+.remember-forgot {
+    margin-bottom: 20px;
+}
+
+.remember-forgot label {
+    color: #fff;
+    margin-right: 10px;
+}
+
+.remember-forgot a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.remember-forgot a:hover {
+    color: #162938;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background: #fff;
+    color: #162938;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #162938;
+    color: #fff;
+}

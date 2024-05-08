@@ -1,0 +1,27 @@
+// Assuming you have already defined your CustomerModel
+const qrCode = require("qrcode");
+
+app.post("/profile", requireLogin, async (req, res) => {
+  try {
+    const dynamicLink = req.body.dynamicLink; // Retrieve the dynamic link from the form submission
+
+    // Fetch user details from MongoDB using Mongoose
+    const user = await CustomerModel.findById(req.session.user._id);
+
+    if (user) {
+      // Construct the session data string for QR code generation
+      const sessionData = `${user.name}, ${user.email}, ${user.vehicleNumber}, ${user.roomId}, ${user.vehiclenumber}, ${user.mobile}, ${dynamicLink}`;
+
+      // Generate the QR code
+      const qrCodeData = await qrCode.toDataURL(sessionData);
+
+      // Render the profile template and pass the user object and QR code data
+      res.render("profile", { user, qrCodeData });
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});

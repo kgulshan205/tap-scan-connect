@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link rel="stylesheet" href="/css/profile.css" />
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="hero">
+        <nav>
+            <img src="../image/logo.png" class="logo" style="width: 180px; height: 70px" />
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+            <img src="../image/user.png" class="user-pic" onclick="toggleMenu()" />
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="user-info">
+                        <img src="../image/user.png" />
+                        <h3>My Profile</h3>
+                    </div>
+                    <hr />
+                    <a href="/profile" class="sub-menu-link">
+                        <img src="../image/profile.png" />
+                        <p>Edit Profile</p>
+                        <span></span>
+                    </a>
+                    <a href="/login" class="sub-menu-link" id="logOut">
+                        <img src="../image/logout.png" />
+                        <p>Logout</p>
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="wrapper">
+        <div class="profile-form">
+
+            <form id="userProfileForm">
+
+                <div class="form-group">
+                    <!-- Editable input for name -->
+                    <label for="name">Name: </label>
+                    <input type="text" id="name" name="name" value="<%= user.name %>" required />
+                </div>
+
+                <div class="form-group">
+                    <!-- Editable input for email -->
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="<%= user.email %>" required />
+                </div>
+
+                <div class="form-group">
+                    <!-- Editable input for vehicle number -->
+                    <label for="vehicleNumber">Vehicle Number:</label>
+                    <input type="text" id="vehiclenumber" name="vehiclenumber" value="<%= user.vehiclenumber %>"
+                        required />
+                </div>
+
+                <div class="form-group">
+                    <!-- Editable input for mobile number -->
+                    <label for="mobile">Mobile:</label>
+                    <input type="text" id="mobile" name="mobile" value="<%= user.mobile %>" required />
+                </div>
+
+                <div class="form-group">
+                    <!-- Display Room ID -->
+                    <label for="roomId">Room ID:</label>
+                    <input type="text" id="roomId" name="roommId" value=" <%= user.roomId %>" required />
+                </div>
+                <img src="<%= qrCodeData %>" alt="QR Code">
+                <a href="<%= qrCodeData %>" download="qr_code.png">Download QR Code</a>
+                <!-- Button to save changes -->
+
+                <button type="button" onclick="saveChanges()">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tap Scan</p>
+    </footer>
+
+    <script src="/js/home.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@latest"></script>
+    <script>
+
+        // Function to generate and display QR code
+        // async function generateQRCode() {
+        //     var formData = new FormData(document.getElementById("userProfileForm"));
+        //     var text = ''; // Generate QR code based on form data
+        //     for (var pair of formData.entries()) {
+        //         text += pair[0] + ': ' + pair[1] + '\n';
+        //     }
+
+        //     const qrCodeDiv = document.getElementById('qr-code');
+        //     qrCodeDiv.innerHTML = ''; // Clear previous QR code, if any
+        //     try {
+        //         await QRCode.toCanvas(qrCodeDiv, text);
+        //         console.log('QR code generated successfully!');
+        //     } catch (error) {
+        //         console.error('Error generating QR code:', error);
+        //     }
+        // }
+
+        // Function to save form changes
+        function saveChanges() {
+
+            var formData = new FormData(document.getElementById("userProfileForm"));
+
+            fetch("/profile", {
+                method: "POST",
+                body: formData,
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    // Handle success response
+                    console.log(data);
+                    // Optionally, display a success message or perform other actions
+                })
+                .catch((error) => {
+                    console.error("Error updating profile:", error);
+                    // Optionally, display an error message or perform other actions
+                });
+        }
+
+    </script>
+</body>
+
+</html>

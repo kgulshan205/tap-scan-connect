@@ -1,0 +1,16 @@
+run the project: nodemon src/index.js
+
+These libraries serve various purposes in the application:
+
+Express = is the backbone of the web application, handling routing, middleware, and request/response handling.
+
+bcrypt = ensures secure storage of passwords by hashing them before storing in the database.
+
+express-session= manages user sessions, allowing the application to keep track of user authentication and other session-related data.
+
+crypto =provides cryptographic functionality required for generating secure random strings and hashing data.
+
+http creates = the HTTP server for serving the Express application.
+
+socket.io = enables real-time communication between clients and server, facilitating features like live chat.
+

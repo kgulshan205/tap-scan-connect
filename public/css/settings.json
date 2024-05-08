@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/0980c777-a84d-48bd-a0de-6639a7af356f/resourceGroups/tappa_group/providers/Microsoft.Web/sites/tappay",
+  "appService.deploySubpath": "public"
+}
